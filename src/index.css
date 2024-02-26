@@ -13,7 +13,6 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* z-index: 1000000; Ensure it's above other content */
 }
 
 .shadow-overlay {
@@ -40,6 +39,6 @@ body {
 }
 
 .modal p {
-	font-size: 12px;
+	font-size: 20px;
 	line-height: 24px;
 }

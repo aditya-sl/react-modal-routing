@@ -1,21 +1,33 @@
-import { useState } from 'react';
-import Modal from '../components/Modal';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
-	const [modal, setModal] = useState(false);
+	const [users, setUsers] = useState([]);
 
-	const handleOpen = () => {
-		setModal(true);
-	};
+	const location = useLocation();
 
-	const handleClose = () => {
-		setModal(false);
-	};
+	useEffect(() => {
+		axios
+			.get('https://jsonplaceholder.typicode.com/users')
+			.then((res) => setUsers(res.data))
+			.catch((error) => console.log(error));
+	}, []);
 
 	return (
 		<div>
-			<button onClick={handleOpen}>Modal</button>
-			{modal && <Modal onClose={handleClose} />}
+			<ul>
+				{users.map((user) => (
+					<li key={user.id}>
+						<Link
+							to={`/users/${user.id}`}
+							state={{ previousLocation: location }}
+						>
+							{user.name}
+						</Link>
+					</li>
+				))}
+			</ul>
 			<p>
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste aliquid
 				laboriosam dolorem dolores quia necessitatibus delectus molestiae iusto
